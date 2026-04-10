@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nortewave - Layout 2 (Hero 2 Cols & 5 Circles Accessories)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D7DCC;
+            --dark: #0A0A0A;
+            --gray-light: #f8fafc;
+            --text-color: #334155;
+            --font: 'Outfit', sans-serif;
+            --footer-bg: #020617;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font); color: var(--text-color); line-height: 1.6; overflow-x: hidden; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        img { max-width: 100%; display: block; }
+        
+        .btn { padding: 14px 28px; border-radius: 50px; font-weight: 600; text-decoration: none; display: inline-block; transition: 0.3s; cursor: pointer; border: none; font-size: 1.1rem;}
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: #ea580c; transform: translateY(-2px); }
+
+        /* HEADER */
+        header { padding: 20px 0; background: #fff; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        header .container { display: flex; justify-content: space-between; align-items: center; }
+        header .logo { font-size: 1.8rem; font-weight: 800; color: var(--dark); letter-spacing: -1px;}
+        header .logo span { color: var(--primary); }
+        header nav ul { display: flex; gap: 40px; list-style: none; }
+        header nav a { text-decoration: none; color: var(--text-color); font-weight: 600; transition: 0.2s;}
+        header nav a:hover { color: var(--primary); }
+        @media (max-width: 900px) { header nav { display: none; } }
+
+        /* HERO - 2 COLS */
+        .hero-section { padding: 80px 0; background: var(--gray-light); min-height: 80vh; display: flex; align-items: center;}
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .hero-text h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; color: var(--dark); font-weight: 800; letter-spacing: -1.5px;}
+        .hero-text p { font-size: 1.25rem; margin-bottom: 40px; color: #475569; }
+        .hero-image { position: relative; z-index: 1; padding: 20px; }
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 40px; left: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            z-index: -1;
+        }
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: 40px; right: 40px; bottom: 0; left: 0;
+            border: 2px solid var(--dark);
+            border-radius: 8px;
+            z-index: -2;
+        }
+        .hero-image img { border-radius: 8px; width: 100%; height: 600px; object-fit: cover; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+        @media (max-width: 768px) { .hero-grid { grid-template-columns: 1fr; } .hero-text h1 { font-size: 3rem;} .hero-section{ padding: 40px 0; } .hero-image{ padding: 0; } .hero-image::before, .hero-image::after { display: none; } .hero-image img{height: 400px;}}
+
+        /* CLIENTS LOGOS */
+        .clients-section { padding: 30px 0; border-bottom: 1px solid #e2e8f0; text-align: center; }
+        .clients-section h2 { font-size: 40px; text-transform: none; margin-bottom: 30px; color: var(--dark); }
+        .marquee { display: flex; width: 200%; animation: scroll 20s linear infinite; }
+        .marquee-content { display: flex; width: 50%; justify-content: space-around; align-items: center;}
+        .marquee-content h3 { font-size: 1.5rem; color: #cbd5e1; text-transform: uppercase; letter-spacing: 2px;}
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* OUR ACCESSORIES - 5 CIRCLES */
+        .accessories-section { padding: 100px 0; text-align: center; }
+        .accessories-section h2 { font-size: 3rem; margin-bottom: 80px; color: var(--dark); }
+        
+        .circles-wrapper { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        
+        .circle-item { display: flex; flex-direction: column; align-items: center; width: 180px; cursor: pointer;}
+        .circle-item:hover .circle-img-box { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-color: var(--primary);}
+        .circle-item:hover h4 { color: var(--primary); }
+
+        .circle-img-box {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .circle-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .circle-item h4 { font-size: 1.1rem; color: var(--dark); transition: 0.3s; }
+
+        @media (max-width: 600px) { .circle-item { width: 140px; } .circle-img-box { width: 120px; height: 120px; } }
+
+        /* ABOUT SECTION (2 cols: Text | Image) */
+        .about-section { padding: 100px 0; background: #fff; border-top: 1px solid #e2e8f0; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-text h2 { font-size: 3rem; margin-bottom: 30px; color: var(--dark); line-height: 1.2;}
+        .about-text p { font-size: 1.15rem; color: #475569; margin-bottom: 20px; }
+        .about-text p strong { color: var(--primary); font-size: 1.25rem;}
+        .about-image img { border-radius: 20px; width: 100%; height: 500px; object-fit: cover; box-shadow: -20px 20px 0px var(--primary); }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } .about-image img { box-shadow: none; } }
+
+        /* VMPV SECTION */
+        .vmpv-section { padding: 100px 0; background: var(--gray-light); }
+        .vmpv-section .container { text-align: center; }
+        .vmpv-section h2 { font-size: 3rem; margin-bottom: 60px; color: var(--dark); }
+        .vmpv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+        .vmpv-card { padding: 40px 30px; background: #fff; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: left; transition: 0.3s;}
+        .vmpv-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .vmpv-card h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--dark); }
+        .vmpv-card p { color: #64748b; font-size: 1rem;}
+        @media (max-width: 900px) { .vmpv-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 600px) { .vmpv-grid { grid-template-columns: 1fr; } }
+
+        /* NEWSLETTER */
+        .newsletter-section { padding: 100px 0; background: var(--dark); color: white; text-align: center; }
+        .newsletter-section h2 { font-size: 3rem; margin-bottom: 20px; }
+        .newsletter-section p { margin-bottom: 40px; font-size: 1.2rem; color: #94a3b8; }
+        .newsletter-form { display: flex; justify-content: center; max-width: 600px; margin: 0 auto; gap: 10px; background: #fff; padding: 10px; border-radius: 50px;}
+        .newsletter-form input { flex: 1; padding: 15px 25px; border: none; border-radius: 50px; outline: none; font-size: 1.1rem; color: #333;}
+        .newsletter-form button { padding: 15px 30px; border-radius: 50px; }
+
+        @media (max-width: 600px) { .newsletter-form { flex-direction: column; background: transparent; padding: 0;} .newsletter-form input { border-radius: 8px;} .newsletter-form button { border-radius: 8px; width: 100%;} }
+
+        /* CONTACTS */
+        .contact-section { padding: 100px 0; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .contact-info h2 { font-size: 3rem; margin-bottom: 40px; color: var(--dark);}
+        .info-item { margin-bottom: 25px; display: flex; flex-direction: column; padding-bottom: 20px; border-bottom: 1px solid #e2e8f0;}
+        .info-item strong { font-size: 1.2rem; color: var(--dark); margin-bottom: 5px; }
+        .info-item span { color: #64748b; font-size: 1.1rem;}
+        .contact-map iframe { width: 100%; height: 500px; border: 0; border-radius: 20px; }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } .contact-map iframe{height: 300px;} }
+
+        /* FOOTER */
+        footer { background: var(--footer-bg); color: #fff; padding: 80px 0 40px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px; border-bottom: 1px solid #1e293b; padding-bottom: 60px;}
+        .footer-logo { font-size: 2.5rem; font-weight: 800; margin-bottom: 20px;}
+        .footer-logo span { color: var(--primary); }
+        .footer-col h4 { font-size: 1.2rem; margin-bottom: 25px; color: #fff; font-weight: 600; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 15px; }
+        .footer-col ul a { color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 1.1rem;}
+        .footer-col ul a:hover { color: var(--primary); }
+        .footer-bottom { text-align: space-between; display: flex; justify-content: space-between; color: #64748b; }
+
+        @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; gap: 20px; text-align: center;} }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HEADER (L Logo - C Nav - R CTA) -->
+    <header>
+        <div class="container">
+            <div class="logo">Norte<span>wave</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#brands">Brands</a></li>
+                    <li><a href="#customers">Customers</a></li>
+                    <li><a href="#contacts">Contacts</a></li>
+                </ul>
+            </nav>
+            <a href="#contacts" class="btn btn-primary" style="padding: 10px 24px; font-size: 1rem;">Become a Reseller</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO (2 Columns) -->
+    <section class="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1>Premium Mobile Accessories.</h1>
+                <p>The smartest and most reliable technological solutions to meet your market demands. Join the network of successful retailers across Portugal, Spain, and Andorra.</p>
+                <a href="#about" class="btn btn-primary">Discover More</a>
+            </div>
+            <div class="hero-image">
+                <img src="./images/p1.jpg" alt="Premium Gadgets">
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. CLIENTS LOGOS (Slide) -->
+    <section class="clients-section" id="brands">
+        <h2>Our Brands</h2>
+        <div class="marquee">
+            <div class="marquee-content">
+                <h3>APPLE</h3> <h3>SAMSUNG</h3> <h3>HUAWEI</h3> <h3>XIAOMI</h3> <h3>SONY</h3>
+            </div>
+            <div class="marquee-content">
+                 <h3>APPLE</h3> <h3>SAMSUNG</h3> <h3>HUAWEI</h3> <h3>XIAOMI</h3> <h3>SONY</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. OUR ACCESSORIES (5 Circles) -->
+    <section class="accessories-section">
+        <div class="container">
+            <h2>Our Accessories</h2>
+            
+            <div class="circles-wrapper">
+                <div class="circle-item">
+                    <div class="circle-img-box"><img src="./images/p7.jpg" alt="Smartphones"></div>
+                    <h4>Smartphones</h4>
+                </div>
+                <div class="circle-item">
+                    <div class="circle-img-box"><img src="./images/p7.jpg" alt="Covers"></div>
+                    <h4>Covers & Cases</h4>
+                </div>
+                <div class="circle-item">
+                    <div class="circle-img-box"><img src="./images/p7.jpg" alt="Audio"></div>
+                    <h4>Headphones</h4>
+                </div>
+                <div class="circle-item">
+                    <div class="circle-img-box"><img src="./images/p7.jpg" alt="Cables"></div>
+                    <h4>Power & Cables</h4>
+                </div>
+                <div class="circle-item">
+                    <div class="circle-img-box"><img src="./images/p7.jpg" alt="Protection"></div>
+                    <h4>Screen Protection</h4>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. ABOUT (2 col: Text | Person with phone) -->
+    <section class="about-section" id="about">
+        <div class="container about-grid">
+            <div class="about-text">
+                <h2>The Specialist in Premium Brands.</h2>
+                <p><strong>Nortewave represents premium accessories brands in the world in the Telecom and Consumer Electronics sectors for the Iberian cluster (Portugal, Spain and Andorra).</strong></p>
+                <p>Since its foundation in 2013, the Porto-based company Nortewave has quickly become one of the most important and reliable distributors of premium smartphone accessories. All our brands are among the market leaders in their segment and are absolute specialists in their field.</p>
+                <p>With simplicity, flexibility and passion, the company grows exponentially thanks to highly passionate professionals - always full of energy!</p>
+            </div>
+            <div class="about-image">
+                <img src="./images/p2.jpg" alt="Person checking mobile phone for B2B deals">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. VMPV SECTION -->
+    <section class="vmpv-section">
+        <div class="container">
+            <h2>Our Core</h2>
+            <div class="vmpv-grid">
+                <div class="vmpv-card">
+                    <h3>Vision</h3>
+                    <p>To be the Iberian Peninsula leading phone accessory supplier to Telecom operators and resellers bringing quality and service together.</p>
+                </div>
+                <div class="vmpv-card">
+                    <h3>Mission</h3>
+                    <p>To bring premium products to the phone accessory market, giving our resellers a cutting edge whilst helping them to grow.</p>
+                </div>
+                <div class="vmpv-card">
+                    <h3>Purpose</h3>
+                    <p>To ensure customers benefit from our skills and knowledge as a distributor to bring them the most innovative and trendy products.</p>
+                </div>
+                <div class="vmpv-card">
+                    <h3>Values</h3>
+                    <p>Integrity – Honesty – Friendly – Professionalism. Consistently applying these traits to every client interaction.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. NEWSLETTER -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Sign up for our newsletter!</h2>
+            <p>Receive exclusive offers, B2B updates and tips on how to look after your devices.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Enter your business email" required>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 8. CONTACTS (+ MAP) -->
+    <section class="contact-section" id="contacts">
+        <div class="container contact-grid">
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <div class="info-item">
+                    <strong>Our Location</strong>
+                    <span>Rua da Tecnologia, 4200, Porto, Portugal</span>
+                </div>
+                <div class="info-item">
+                    <strong>Email Address</strong>
+                    <span>b2b@nortewave.pt</span>
+                </div>
+                <div class="info-item">
+                    <strong>Phone Number</strong>
+                    <span>+351 22 123 4567</span>
+                </div>
+            </div>
+            <div class="contact-map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3004.2!2d-8.6!3d41.15!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDA5JzAwLjAiTiA4wrAzNicwMC4wIlc!5e0!3m2!1sen!2spt!4v1700000000000!5m2!1sen!2spt" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">Norte<span>wave</span></div>
+                    <p>The Specialist in Premium Accessories for Portugal, Spain and Andorra.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#brands">Brands</a></li>
+                        <li><a href="#customers">Customers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#">Covers & Protection</a></li>
+                        <li><a href="#">Audio Devices</a></li>
+                        <li><a href="#">Power & Cables</a></li>
+                        <li><a href="#">Holders & Mounts</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Nortewave. All rights reserved.</span>
+                <span>Privacy Policy | Terms of Service</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

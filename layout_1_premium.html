@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nortewave - Layout 1 (Hero Slider & Custom Accessories)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2D7DCC;
+            --dark: #0A0A0A;
+            --gray-light: #f5f5f5;
+            --text-color: #333;
+            --font: 'Inter', sans-serif;
+            --footer-bg: #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 40px;
+            color: #0A0A0A;
+        }
+
+        body {
+            font-family: var(--font);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0022cc;
+        }
+
+        /* HEADER */
+        header {
+            border-bottom: 1px solid #eaeaea;
+            padding: 20px 0;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        header nav a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO - SLIDER */
+        .hero-slider {
+            position: relative;
+            height: 70vh;
+            min-height: 500px;
+            background: #222;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .hero-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(45, 125, 204, 0.6) 0%, rgba(10, 10, 10, 0.95) 100%);
+            z-index: -1;
+        }
+
+        .hero-slide-content {
+            position: relative;
+            z-index: 2;
+            color: #fff;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-slide-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+
+        .slider-dot.active {
+            background: #fff;
+        }
+
+        /* CLIENTS LOGOS */
+        .clients-section {
+            padding: 40px 0;
+            background: var(--gray-light);
+            overflow: hidden;
+        }
+
+        .clients-section h2 {
+            text-align: center;
+            text-transform: none;
+            margin-bottom: 30px;
+        }
+
+        .marquee {
+            display: flex;
+            width: 200%;
+            animation: scroll 20s linear infinite;
+        }
+
+        .marquee-content {
+            display: flex;
+            width: 50%;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .marquee-content img {
+            height: 40px;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .marquee-content img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* OUR ACCESSORIES - CUSTOM DISPOSITION */
+        .accessories-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .accessories-section h2 {
+            margin-bottom: 60px;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .masonry-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Slight vertical offset for the perfect masonry look */
+        .masonry-col:nth-child(1) {
+            margin-top: 40px;
+        }
+
+        .masonry-col:nth-child(3) {
+            margin-top: 20px;
+        }
+
+        .masonry-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Left Column Heights */
+        .masonry-col:nth-child(1) .masonry-item:nth-child(1) {
+            height: 350px;
+        }
+
+        .masonry-col:nth-child(1) .masonry-item:nth-child(2) {
+            height: 250px;
+        }
+
+        /* Right Column Heights */
+        .masonry-col:nth-child(3) .masonry-item:nth-child(1) {
+            height: 280px;
+        }
+
+        .masonry-col:nth-child(3) .masonry-item:nth-child(2) {
+            height: 320px;
+        }
+
+        /* Center Item Height */
+        .center-item {
+            height: 100%;
+            min-height: 600px;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .masonry-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .masonry-col {
+                margin-top: 0 !important;
+            }
+
+            .center-item {
+                min-height: 400px;
+            }
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            padding: 100px 0;
+            background: var(--gray-light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .about-image img {
+            border-radius: 10px;
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* VMV SECTION */
+        .vmpv-section {
+            padding: 100px 0;
+        }
+
+        .vmpv-section .container {
+            text-align: center;
+        }
+
+        .vmpv-section h2 {
+            margin-bottom: 60px;
+        }
+
+        .vmpv-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .vmpv-card {
+            padding: 40px 20px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .vmpv-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .vmpv-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 900px) {
+            .vmpv-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .vmpv-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* NEWSLETTER */
+        .newsletter-section {
+            padding: 80px 0;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .newsletter-section p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background: var(--dark);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /* CONTACTS */
+        .contact-section {
+            padding: 100px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item strong {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .info-item span {
+            color: #555;
+        }
+
+        .contact-map iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--footer-bg);
+            color: #fff;
+            padding: 80px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #aaa;
+            text-transform: uppercase;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul a {
+            color: #ccc;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            header nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. HEADER (L Logo - C Nav - R CTA) -->
+    <header>
+        <div class="container">
+            <div class="logo">NORTEWAVE</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#brands">Brands</a></li>
+                    <li><a href="#customers">Customers</a></li>
+                    <li><a href="#contacts">Contact Us</a></li>
+                </ul>
+            </nav>
+            <a href="#contacts" class="btn btn-primary">Become a Reseller</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO (Slider) -->
+    <section class="hero-slider">
+        <div class="hero-slide active"
+            style="background-image: url('./images/p1.jpg');">
+            <div class="hero-slide-content">
+                <h1>Premium Mobile Accessories</h1>
+                <p>The finest selection of telecom and consumer electronics for the Iberian cluster.</p>
+                <a href="#about" class="btn btn-primary">View More</a>
+            </div>
+        </div>
+        <div class="hero-slide"
+            style="background-image: url('./images/p2.jpg');">
+            <div class="hero-slide-content">
+                <h1>Tecnological Solutions</h1>
+                <p>Meeting today's needs with quality and innovation.</p>
+                <a href="#about" class="btn btn-primary">Discover Brands</a>
+            </div>
+        </div>
+        <div class="slider-controls">
+            <div class="slider-dot active" onclick="setSlide(0)"></div>
+            <div class="slider-dot" onclick="setSlide(1)"></div>
+        </div>
+    </section>
+
+    <!-- 3. CLIENTS LOGOS (Slide) -->
+    <section class="clients-section" id="brands">
+        <div class="marquee">
+            <div class="marquee-content">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Samsung_Lettermark.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="Client">
+            </div>
+            <div class="marquee-content">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Samsung_Lettermark.svg" alt="Client">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="Client">
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. OUR ACCESSORIES (Custom Image Layout) -->
+    <section class="accessories-section">
+        <div class="container">
+            <h2>Our Accessories</h2>
+
+            <div class="masonry-grid">
+                <!-- Left Column (2 photos) -->
+                <div class="masonry-col">
+                    <div class="masonry-item">
+                        <img src="./images/p7.jpg"
+                            alt="Screen Protector">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="./images/p7.jpg"
+                            alt="Phone Cover">
+                    </div>
+                </div>
+
+                <!-- Center Column (1 photo) -->
+                <div class="masonry-col">
+                    <div class="masonry-item center-item">
+                        <img src="./images/p7.jpg"
+                            alt="Central Premium Gadget">
+                    </div>
+                </div>
+
+                <!-- Right Column (2 photos) -->
+                <div class="masonry-col">
+                    <div class="masonry-item">
+                        <img src="./images/p7.jpg"
+                            alt="Car Holder">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="./images/p7.jpg"
+                            alt="Earbuds">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. ABOUT (2 col: Text | Person with phone) -->
+    <section class="about-section" id="about">
+        <div class="container about-grid">
+            <div class="about-text">
+                <h2>The Specialist in Premium Accessories</h2>
+                <p><strong>Nortewave represents premium accessories brands in the world in the Telecom and Consumer
+                        Electronics sectors for the Iberian cluster (Portugal, Spain and Andorra).</strong></p>
+                <p>Since its foundation in 2013, the Porto-based company Nortewave has quickly become one of the most
+                    important and reliable distributors of premium smartphone accessories. All our brands are among the
+                    market leaders in their segment and are absolute specialists in their field.</p>
+                <p>With simplicity, flexibility and passion, the company grows exponentially thanks to highly passionate
+                    professionals - always full of energy!</p>
+            </div>
+            <div class="about-image">
+                <img src="./images/p7.jpg"
+                    alt="Premium Accessories Photography">
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. VMPV SECTION -->
+    <section class="vmpv-section">
+        <div class="container">
+            <h2>Our Foundation</h2>
+            <div class="vmpv-grid">
+                <div class="vmpv-card">
+                    <h3>Vision</h3>
+                    <p>To be the Iberian Peninsula leading phone accessory supplier to Telecom operators and resellers
+                        bringing quality and service together.</p>
+                </div>
+                <div class="vmpv-card">
+                    <h3>Mission</h3>
+                    <p>To bring premium products to the phone accessory market, giving our resellers a cutting edge
+                        whilst helping them to grow.</p>
+                </div>
+                <div class="vmpv-card">
+                    <h3>Purpose</h3>
+                    <p>To ensure customers benefit from our skills and knowledge as a distributor to bring them the most
+                        innovative and trendy products.</p>
+                </div>
+                <div class="vmpv-card">
+                    <h3>Values</h3>
+                    <p>Integrity – Honesty – Friendly – Professionalism. Building relationships based on trust and
+                        mutual growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. NEWSLETTER -->
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Sign up for our newsletter!</h2>
+            <p>Receive offers, updates and tips on how to look after your devices.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Your best email address" required>
+                <button type="submit" class="btn">Subscribe Now</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 8. CONTACTS (+ MAP) -->
+    <section class="contact-section" id="contacts">
+        <div class="container contact-grid">
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <div class="info-item">
+                    <strong>Address</strong>
+                    <span>Rua Exemplo, 123, Porto, Portugal</span>
+                </div>
+                <div class="info-item">
+                    <strong>Email</strong>
+                    <span>comercial@nortewave.pt</span>
+                </div>
+                <div class="info-item">
+                    <strong>Phone</strong>
+                    <span>+351 220 000 000</span>
+                </div>
+                <br>
+                <a href="#" class="btn btn-primary">Become a Retailer</a>
+            </div>
+            <div class="contact-map">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12015.688226027376!2d-8.62573215!3d41.1579438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd2464e32049e29f%3A0xc3c90cb646cc26a4!2sPorto%2C%20Portugal!5e0!3m2!1sen!2sbr!4v1700000000000!5m2!1sen!2sbr"
+                    allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">NORTEWAVE</div>
+                    <p style="color: #aaa;">The Specialist in Premium Accessories for Portugal, Spain and Andorra.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Menu</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#brands">Brands</a></li>
+                        <li><a href="#customers">Customers</a></li>
+                        <li><a href="#contacts">Contacts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#">Screen Protectors</a></li>
+                        <li><a href="#">Cases & Covers</a></li>
+                        <li><a href="#">Chargers & Cables</a></li>
+                        <li><a href="#">Audio Solutions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Nortewave. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+
+        function setSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            setSlide(currentSlide);
+        }, 5000);
+    </script>
+</body>
+
+</html>
